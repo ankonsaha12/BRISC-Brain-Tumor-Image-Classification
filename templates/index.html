@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRISC Brain Tumor Classification</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <h1>🧠 BRISC Brain Tumor Classification</h1>
+        <p>Upload an MRI scan to classify and visualize results with Grad-CAM</p>
+    </header>
+
+    <main class="container">
+        <div class="card upload-card">
+            <h2>Upload MRI Scan</h2>
+            <form id="upload-form">
+                <div class="file-drop-area" id="file-drop-area">
+                    <img src="httpsx://storage.googleapis.com/gemini-generative-ai-public/images/86f03d52-62a2-4c28-98e6-e3d0d86940e4" alt="Upload Icon" class="upload-icon">
+                    <p>Drag & Drop your image here</p>
+                    <p>or</p>
+                    <input type="file" id="image-input" accept="image/*" required>
+                    <label for="image-input" class="file-btn">Browse Files</label>
+                </div>
+                <button type="submit" class="analyze-btn">Analyze</button>
+            </form>
+            <div id="image-preview-container" class="hidden">
+                <img id="image-preview" src="#" alt="Image Preview"/>
+                <span id="file-name"></span>
+            </div>
+        </div>
+
+        <div id="loader" class="loader-container hidden">
+            <div class="loader"></div>
+            <p>Analyzing image... This may take a moment.</p>
+        </div>
+
+        <div id="results-section" class="card results-card hidden">
+            <h2>Analysis Results</h2>
+            <div class="results-grid">
+                
+                <div class="diagnosis-panel">
+                    <h3>Diagnosis</h3>
+                    <div id="prediction-result" class="prediction">
+                        <span>Predicted Type:</span>
+                        <strong id="prediction-class">...</strong>
+                    </div>
+                    <div id="confidence-result" class="confidence">
+                        <span>Confidence:</span>
+                        <strong id="prediction-confidence">...%</strong>
+                    </div>
+                    <div class="probabilities-chart">
+                        <h3>Probability Distribution</h3>
+                        <ul id="prob-list">
+                            </ul>
+                    </div>
+                </div>
+
+                <div class="images-panel">
+                    <div class="image-container">
+                        <h3>Original Image</h3>
+                        <img id="original-image" src="#" alt="Original MRI">
+                    </div>
+                    <div class="image-container">
+                        <h3>Grad-CAM Visualization</h3>
+                        <img id="gradcam-image" src="#" alt="Grad-CAM Heatmap">
+                        <p class="note">Heatmap highlights areas the model focused on for its prediction.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
